@@ -1,5 +1,5 @@
 Package: ALLCatcheR
-Title: Prediction of leukemia subtypes based on gene expression data.
+Title: Prediction of B-Cell Acute Lymphoblastic Leukemia molecular subtypes based on gene expression data.
 Version: 1.0
 Authors@R: c( person("Thomas", "Beder", , "thomas.beder@uksh.de", role = c("aut")), 
               person("Johannes", "Zimmermann", , "j.zimmermann@iem.uni-kiel.de", role = c("cre")))
