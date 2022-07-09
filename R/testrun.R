@@ -1,19 +1,32 @@
 # LiblineaR version 2.10-12 ist das package was wir zum vorhersagen brauchen
 
 # navigate to diretory where you downloaded the github files
-setwd("~/Desktop/RandomForest/3rd/Classifier_paper/general/github_files/")
-outFun <- function(Counts, ID_class, sep) {
+#setwd("~/Desktop/RandomForest/3rd/Classifier_paper/general/github_files/")
+# outFun(Counts = "StJude_data_missing_genes.tsv", ID_class = "ensemble_ID", sep = "\t")
+# Counts.file="data/StJude_data_missing_genes.tsv"; ID_class = "ensemble_ID"; sep = "\t"
+
+#' @title Classifiction
+#'
+#' @description Prediction of B-ALL leukemia subtypes based on expression data
+#' @export
+#'
+#' @param Counts.file count data
+#' @param ID_class gene ids
+#' @param sep file seperator
+#' @return data.frame containing class predictions
+#' outFun(Counts = "StJude_data_missing_genes.tsv", ID_class = "ensemble_ID", sep = "\t")
+outFun <- function(Counts.file, ID_class="ensemble_ID", sep="\t") {
 # 1. preprocessing ############################################################
 # load ML models ###############################################################
 # load ID conversion table 
-  ID_conv <- read.csv("ID_conversion.tsv", sep = sep, stringsAsFactors = F)
+  #ID_conv <- read.csv("data/ID_conversion.tsv", sep = sep, stringsAsFactors = F)
 # load count data, where the first column should be gene identifiers
-  Counts <- read.csv(Counts, sep = "\t", stringsAsFactors = F, row.names = 1)
+  Counts <- read.csv(Counts.file, sep = "\t", stringsAsFactors = F, row.names = 1)
   cat("counts loaded...")
   
-if (length(rownames(Counts)) == length(which(rownames(Counts) == as.character(1:nrow(Counts))))) {
-  cat("Error: symbol, ensemble or entrez are not provided in the first column")
-} else {
+  if (length(rownames(Counts)) == length(which(rownames(Counts) == as.character(1:nrow(Counts))))) {
+    stop("Error: symbol, ensemble or entrez are not provided in the first column")
+  } 
   
 # select the genes used for classifier trainig
   ma <- match(ID_conv[,match(ID_class, colnames(ID_conv))], rownames(Counts))
@@ -54,7 +67,6 @@ if (length(rownames(Counts)) == length(which(rownames(Counts) == as.character(1:
 
 # 2. classification ############################################################
 # load ML models ###############################################################
-  load("svm0.3_models.RData")
 # predict 
   cat("predict...\n")
   preds <- list()
@@ -88,10 +100,9 @@ if (length(rownames(Counts)) == length(which(rownames(Counts) == as.character(1:
   mat$sample <- rownames(Counts.norm)
   cat("predictions saved in:", getwd())
   # save predictions
-  write.table(mat,"predictions.tsv", sep = "\t", row.names = F)
+  #write.table(mat,"predictions.tsv", sep = "\t", row.names = F)
+  return(mat)
 }
-}
-outFun(Counts = "StJude_data_missing_genes.tsv", ID_class = "ensemble_ID", sep = "\t")
 # Counts: /path/to/the/counts/file.tsv
 # possible ID_class: "symbol", "ensemble_ID" or "entrez_ID"
 # possible sep: "\t", ",", ";", " ")
