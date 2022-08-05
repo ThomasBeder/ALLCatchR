@@ -3,9 +3,9 @@
 #' Gene expression example data used for classification 
 #'
 #' @format data.frame with gene expression data
-#' @usage data(Counts)
+#' @usage data(test_data)
 #'
-"Counts"
+"test_data"
 
 #' classification model
 #'
@@ -16,11 +16,3 @@
 #'
 "models_L"
 
-#' test expression data
-#'
-#' Raw gene read counts of 195 patients obtained from transcriptomics
-#'
-#' @format data.frame with human gene expression counts
-#' @usage data(test_data)
-#'
-"test_data"

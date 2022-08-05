@@ -19,3 +19,7 @@ data.frame containing class predictions
 \description{
 Prediction of B-ALL leukemia subtypes based on expression data
 }
+\examples{
+outFun()
+
+}

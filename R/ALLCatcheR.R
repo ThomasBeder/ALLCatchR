@@ -7,6 +7,9 @@
 #' @param ID_class gene ids
 #' @param sep file seperator
 #' @return data.frame containing class predictions
+#' @examples
+#' outFun()
+#'
 outFun <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   # 1. preprocessing ############################################################
   # load count data, where the first column should be gene identifiers

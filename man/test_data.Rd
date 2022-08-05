@@ -3,14 +3,14 @@
 \docType{data}
 \name{test_data}
 \alias{test_data}
-\title{test expression data}
+\title{Expression example data}
 \format{
-data.frame with human gene expression counts
+data.frame with gene expression data
 }
 \usage{
 data(test_data)
 }
 \description{
-Raw gene read counts of 195 patients obtained from transcriptomics
+Gene expression example data used for classification
 }
 \keyword{datasets}
