@@ -10,12 +10,12 @@ BugReports: https://github.com/ThomasBeder/ALLcatcheR/issues
 Depends:
     R (>= 4.0.0)
 biocViews:
-    LiblineaR (>= 2.10-12)
 Imports:
     methods,
     utils,
     stats,
     graphics,
+    LiblineaR (>= 2.10-12),
     singscore
 Suggests:
     knitr,
