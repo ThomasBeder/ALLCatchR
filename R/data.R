@@ -1,17 +1,26 @@
-#' Gene ID conversion file
+#' Expression example data
 #'
-#' Database to match different gene IDs
+#' Gene expression example data used for classification 
 #'
-#' @format data.frame with symbol,ensemble, entrez and default expression values
-#' @usage data(ID_conversion)
+#' @format data.frame with gene expression data
+#' @usage data(Counts)
 #'
-"ID_conv"
+"Counts"
 
-#' ALL subtype classifier
+#' classification model
 #'
-#' Trained classifier to detect molecular subclass from gene expression data
+#' model used for predictions including cross-validation
 #'
-#' @format Classifier object 
-#' @usage data(svm0.3_models)
+#' @format list with different prediction models
+#' @usage data(models_L)
 #'
-"svm0.3"
+"models_L"
+
+#' test expression data
+#'
+#' Raw gene read counts of 195 patients obtained from transcriptomics
+#'
+#' @format data.frame with human gene expression counts
+#' @usage data(test_data)
+#'
+"test_data"

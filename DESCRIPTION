@@ -1,25 +1,28 @@
 Package: ALLCatcheR
 Title: Prediction of B-Cell Acute Lymphoblastic Leukemia molecular subtypes based on gene expression data.
 Version: 1.0
-Authors@R: c( person("Thomas", "Beder", , "thomas.beder@uksh.de", role = c("aut")), 
-              person("Johannes", "Zimmermann", , "j.zimmermann@iem.uni-kiel.de", role = c("cre")))
+Author: c( person("Thomas", "Beder", , "thomas.beder@uksh.de", role = c("aut")),
+           person("Johannes", "Zimmermann", , "j.zimmermann@iem.uni-kiel.de", role = c("cre")))
+Maintainer: Johannes Zimmermann <j.zimmermann@iem.uni-kiel.de>
 Description: Prediction of leukemia subtypes based on gene expression data.
 URL: https://github.com/ThomasBeder/ALLcatcheR
 BugReports: https://github.com/ThomasBeder/ALLcatcheR/issues
 Depends:
-    R (>= 4.0.0),
+    R (>= 4.0.0)
+biocViews:
     LiblineaR (>= 2.10-12)
 Imports:
     methods,
     utils,
     stats,
-    graphics
+    graphics,
+    singscore
 Suggests:
     knitr,
     rmarkdown
 License: `use_mit_license()`
 VignetteBuilder: knitr
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 LazyData: true
