@@ -4,8 +4,8 @@ Version: 1.0
 Author: c( person("Thomas", "Beder", , "thomas.beder@uksh.de", role = c("aut")),
            person("Johannes", "Zimmermann", , "j.zimmermann@iem.uni-kiel.de", role = c("cre")))
 Maintainer: Johannes Zimmermann <j.zimmermann@iem.uni-kiel.de>
-Description: Prediction of leukemia subtypes based on gene expression data.
-URL: https://github.com/ThomasBeder/ALLcatcheR
+Description: Molecular disease subtype and immunophenotype are important prognosticators in B-cell precursor acute lymphoblastic leukemia (BCP-ALL). Up to 26 molecular subtypes are acknowledged as distinct diagnostic entities (WHO-HAEM5 / ICC). RNA-Seq identifies all subtypes, however requesting defined analysis workflows for routine diagnostic application are lacking. To leverage the potential of systematic gene expression analysis, we developed ALLCatchR, a machine-learning based classifier using RNA-Seq count data to allocate BCP-ALL samples to all gene expression defined molecular subtypes. Training Trained on n=1,869 transcriptome profiles with genomic established subtype definitions (3 cohorts; 55% pediatric / 45% adult) enabled ALLCatchR to perform subtype allocation in 3 independent hold-out cohorts (n=1018; 75% pediatric / 25% adult) with 95.7% accuracy (averaged sensitivity: 91% / specificity: 99%; remaining ‘unclassified’: 1%). Based on a newly established RNA-Seq reference of human B-lymphopoiesis (7 FACS-sorted differentiation stages), ALLCatchR defines proximities between BCP-ALL subtypes and lymphoid differentiation.
+URL: https://github.com/ThomasBeder/ALLCatchR
 BugReports: https://github.com/ThomasBeder/ALLcatcheR/issues
 Depends:
     R (>= 4.0.0)
