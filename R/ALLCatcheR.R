@@ -126,15 +126,15 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   # 3. classification using ssGSEA ###########################################
   # calculate tpmps
   # load cds lengths
-  cds_length <-  cds_length$cds_length[match(rownames(Counts), cds_length$gene)]
+  cds_lengthNum <-  cds_length$cds_length[match(rownames(Counts), cds_length$gene)]
   # calculate mean cds length for missing values
-  cds_length[is.na(cds_length)] <- mean(cds_length[is.na(cds_length)], na.rm = T)
+  cds_lengthNum[is.na(cds_lengthNum)] <- mean(cds_lengthNum[is.na(cds_lengthNum)], na.rm = T)
   # calculate tpmps itself # https://support.bioconductor.org/p/91218/
   tpm3 <- function(counts,len) {
     x <- counts/len
     return(t(t(x)*1e6/colSums(x)))
   }
-  tpms <- tpm3(Counts[,1:ncol(Counts)],cds_length)
+  tpms <- tpm3(Counts[,1:ncol(Counts)],cds_lengthNum)
   tpms <- as.data.frame(tpms)
   
   # rank data
@@ -456,6 +456,48 @@ table(tier)
   PredictionImmuno <- colnames(mat)[apply(mat, 1, function(x) which.max(x))]
   PredictionImmuno[which(MaxImmuno<0.5)] <- "Unclassified"  
   
+################################################################################
+###### progenitor ssGSEA #######################################################
+################################################################################
+cat("assign putative progenitor...", getwd(),"\n")
+    dim(Counts)
+  ma <- match(genesMini,rownames(Counts))
+  Counts <- Counts[ma,]
+  cds_lengthNum <-  cds_length$cds_length[match(rownames(Counts), cds_length$gene)]
+  # calculate mean cds length for missing values
+  cds_lengthNum[is.na(cds_lengthNum)] <- mean(cds_lengthNum[is.na(cds_lengthNum)], na.rm = T)
+  # calculate tpmps itself # https://support.bioconductor.org/p/91218/
+  tpms <- tpm3(Counts[,1:ncol(Counts)],cds_lengthNum)
+  tpms <- as.data.frame(tpms)
+  
+  # rank data
+  rankData <- singscore::rankGenes(tpms)
+  
+  # load gene sets used for ssGSEA and transform them to a list
+  Genes_up <- Genes_upMini
+  Genes_dn <- Genes_dnMini
+  scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[1]], downSet = Genes_dn[[1]])
+  head(scoredf)
+  TotalScore <- scoredf[,1, drop = FALSE]
+  
+  for (i in 1:length(Genes_up)) {
+    scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[i]], downSet = Genes_dn[[i]])
+    TotalScore[,i] <- scoredf[,1]
+  }
+  
+  # assign pathways names to data
+  colnames(TotalScore) <- names(Genes_up)
+  TotalScore <- TotalScore[c(1,7,4,5,6,2,3)]
+  head(TotalScore)
+  
+  # scale total enrichment scores
+  TotalScore_scaled <- as.data.frame(t(apply(TotalScore, 1, scale)))
+  for (i in 1:nrow(TotalScore_scaled)) {
+    TotalScore_scaled[i,] <- range01(TotalScore_scaled[i,])
+  }
+  colnames(TotalScore_scaled) <- colnames(TotalScore)
+  head(TotalScore_scaled)
+  
 ################################################################################  
 # 4. generate output ###########################################################
 ################################################################################  
@@ -469,6 +511,7 @@ output <- cbind(sample = rownames(mat20),
                   Score_sex = MaxSex,
                   Immuno = PredictionImmuno,
                   ScoreImmuno = MaxImmuno,
+                  TotalScore_scaled,
                   mat20, 
                   geneSetPreds_df)
 
