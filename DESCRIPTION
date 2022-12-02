@@ -11,13 +11,8 @@ Depends:
     R (>= 4.0.0)
 biocViews:
 Imports:
-    methods,
     utils,
     stats,
-    graphics,
-    LiblineaR (>= 2.10-12),
-    kknn,
-    randomForest,
     singscore
 Suggests:
     knitr,
