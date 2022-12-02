@@ -1,3 +1,5 @@
+globalVariables(c("test_data","models_20","NH","BC_model_GMALL","BC_model_MLL","models_L_sex","models_L_Immuno"))
+
 #' @title Classifiction
 #'
 #' @description Prediction of B-ALL leukemia subtypes based on expression data
@@ -17,7 +19,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
     Counts <- test_data
     cat("test counts loaded...\n")
   }else{
-    Counts <- read.csv(Counts.file, sep = "\t", stringsAsFactors = F, row.names = 1)
+    Counts <- utils::read.csv(Counts.file, sep = "\t", stringsAsFactors = F, row.names = 1)
     cat("counts loaded...\n")
   }
   
@@ -69,13 +71,13 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   cat("ML prediction...\n")
   preds <- list()
   for (i in 1:10) {
-    preds[[i]] <- as.character(predict(models_20[[i]], Counts.norm))
+    preds[[i]] <- as.character(stats::predict(models_20[[i]], Counts.norm))
   }
   predsFin20 <- do.call("cbind",preds)
   
   preds <- list()
   for (i in 1:10) {
-    preds[[i]] <- as.character(predict(NH[[i]], Counts.norm))
+    preds[[i]] <- as.character(stats::predict(NH[[i]], Counts.norm))
   }
   predsFinNH <- do.call("cbind",preds)
   
@@ -144,7 +146,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   Genes_up <- Genes_up20
   Genes_dn <- Genes_dn20
   scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[1]], downSet = Genes_dn[[1]])
-  head(scoredf)
+  utils::head(scoredf)
   TotalScore <- scoredf[,1, drop = FALSE]
   
   for (i in 1:length(Genes_up)) {
@@ -154,7 +156,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   
   # assign pathways names to data
   colnames(TotalScore) <- names(Genes_up)
-  head(TotalScore)
+  utils::head(TotalScore)
   
   # scale total enrichment scores
   TotalScore_scaled <- as.data.frame(t(apply(TotalScore, 1, scale)))
@@ -173,7 +175,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   trainData <- trainData[,match(colnames(TotalScore_scaled), colnames(trainData))]
   #################
   TotalScore_scaled_ALL <- rbind(TotalScore_scaled,trainData)
-  DIST_ALL <- dist(TotalScore_scaled_ALL)
+  DIST_ALL <- stats::dist(TotalScore_scaled_ALL)
   DIST_ALL <- as.data.frame(as.matrix(DIST_ALL))
   
   trainPos <- (nrow(TotalScore_scaled)+1):ncol(DIST_ALL)
@@ -208,7 +210,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   length(Genes_up)
   length(Genes_dn)
   scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[1]], downSet = Genes_dn[[1]])
-  head(scoredf)
+  utils::head(scoredf)
   TotalScore <- scoredf[,1, drop = FALSE]
   
   for (i in 1:length(Genes_up)) {
@@ -218,7 +220,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   
   # assign pathways names to data
   colnames(TotalScore) <- names(Genes_up)
-  head(TotalScore)
+  utils::head(TotalScore)
   
   # scale total enrichment scores
   TotalScore_scaled <- as.data.frame(t(apply(TotalScore, 1, scale)))
@@ -237,7 +239,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   trainData <- trainData[,match(colnames(TotalScore_scaled), colnames(trainData))]
   #################
   TotalScore_scaled_ALL <- rbind(TotalScore_scaled,trainData)
-  DIST_ALL <- dist(TotalScore_scaled_ALL)
+  DIST_ALL <- stats::dist(TotalScore_scaled_ALL)
   DIST_ALL <- as.data.frame(as.matrix(DIST_ALL))
   
   trainPos <- (nrow(TotalScore_scaled)+1):ncol(DIST_ALL)
@@ -259,7 +261,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   geneSet_preds_NH <- colnames(geneSetPreds_df_NH)[apply(geneSetPreds_df_NH, 1, which.max)]
   colnames(geneSetPreds_df_NH) <- paste0("NN_",colnames(geneSetPreds_df_NH))
   
-  head(geneSetPreds_df)
+  utils::head(geneSetPreds_df)
   geneSetPreds_df$NN_Near.haploid <- 0
   
   if (length(which(Prediction20 == "Near.haploid")) > 0 ) {
@@ -294,7 +296,7 @@ table(tier)
     Counts <- test_data
     cat("test counts loaded...\n")
   }else{
-    Counts <- read.csv(Counts.file, sep = "\t", stringsAsFactors = F, row.names = 1)
+    Counts <- utils::read.csv(Counts.file, sep = "\t", stringsAsFactors = F, row.names = 1)
   }
     
   if (length(rownames(Counts)) == length(which(rownames(Counts) == as.character(1:nrow(Counts))))) {
@@ -341,13 +343,13 @@ table(tier)
 
   preds <- list()
   for (i in 1:10) {
-    preds[[i]] <- predict(BC_model_GMALL[[i]], Counts.norm)
+    preds[[i]] <- stats::predict(BC_model_GMALL[[i]], Counts.norm)
   }
   preds <- do.call("cbind",preds)
   preds1 <- apply(preds, 1, mean)
   preds <- list()
   for (i in 1:10) {
-    preds[[i]] <- predict(BC_model_MLL[[i]], Counts.norm)
+    preds[[i]] <- stats::predict(BC_model_MLL[[i]], Counts.norm)
   }
   preds <- do.call("cbind",preds)
   preds2 <- apply(preds, 1, mean)
@@ -363,7 +365,7 @@ table(tier)
     Counts <- test_data
 #    cat("test counts loaded...\n")
   }else{
-    Counts <- read.csv(Counts.file, sep = "\t", stringsAsFactors = F, row.names = 1)
+    Counts <- utils::read.csv(Counts.file, sep = "\t", stringsAsFactors = F, row.names = 1)
 #    cat("counts loaded...\n")
   }
   
@@ -411,12 +413,12 @@ table(tier)
   
   preds <- list()
   for (i in 1:length(models_L_sex)) {
-    preds[[i]] <- as.character(predict(models_L_sex[[i]], Counts.norm))
+    preds[[i]] <- as.character(stats::predict(models_L_sex[[i]], Counts.norm))
   }
   
   preds <- do.call("cbind",preds)
   
-  head(preds)
+  utils::head(preds)
   rownames(preds) <- rownames(Counts.norm)
   mat <- matrix(ncol =  2)
   colnames(mat) <- c("F","M")
@@ -437,10 +439,10 @@ table(tier)
 ################################################################################  
   preds <- list()
   for (i in 1:length(models_L_Immuno)) {
-    preds[[i]] <- as.character(predict(models_L_Immuno[[i]], Counts.norm))
+    preds[[i]] <- as.character(stats::predict(models_L_Immuno[[i]], Counts.norm))
   }
   preds <- do.call("cbind",preds)
-  head(preds)
+  utils::head(preds)
   rownames(preds) <- rownames(Counts.norm)
   mat <- matrix(ncol =  2)
   colnames(mat) <- c("pro_B", "common_B")
@@ -477,7 +479,7 @@ cat("assign putative progenitor...", getwd(),"\n")
   Genes_up <- Genes_upMini
   Genes_dn <- Genes_dnMini
   scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[1]], downSet = Genes_dn[[1]])
-  head(scoredf)
+  utils::head(scoredf)
   TotalScore <- scoredf[,1, drop = FALSE]
   
   for (i in 1:length(Genes_up)) {
@@ -488,7 +490,7 @@ cat("assign putative progenitor...", getwd(),"\n")
   # assign pathways names to data
   colnames(TotalScore) <- names(Genes_up)
   TotalScore <- TotalScore[c(1,7,4,5,6,2,3)]
-  head(TotalScore)
+  utils::head(TotalScore)
   
   # scale total enrichment scores
   TotalScore_scaled <- as.data.frame(t(apply(TotalScore, 1, scale)))
@@ -496,7 +498,7 @@ cat("assign putative progenitor...", getwd(),"\n")
     TotalScore_scaled[i,] <- range01(TotalScore_scaled[i,])
   }
   colnames(TotalScore_scaled) <- colnames(TotalScore)
-  head(TotalScore_scaled)
+  utils::head(TotalScore_scaled)
   
 ################################################################################  
 # 4. generate output ###########################################################
@@ -525,6 +527,6 @@ colnames(output)[NN_cols] <- paste0("NN_",cutoffs$subtype[match(gsub("NN_","", c
 cat("predictions saved in:", getwd(),"\n")
   # save predictions
   cat("Writing output file:",paste0(getwd(), "/predictions.tsv"),"...\n")
-  write.table(output,"predictions.tsv", sep = "\t", row.names = F)
+  utils::write.table(output,"predictions.tsv", sep = "\t", row.names = F)
   return(invisible(output))
 }
