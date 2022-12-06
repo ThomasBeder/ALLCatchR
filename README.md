@@ -30,7 +30,7 @@ devtools::install_github("ThomasBeder/ALLCatchR")
 If Counts.file is left ```NA``` ten test samples are predicted
 ```
 library(ALLCatchR)
-allcatch(Counts.file = NA, ID_class = "symbol",sep = "\t")
+allcatch()
 ```
 
 ## Run ALLCatchR
