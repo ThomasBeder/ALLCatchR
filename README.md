@@ -9,7 +9,6 @@ _ALLCatchR_ was developed to predict:
 - Immunophenotype
 - Patient's sex
 
-<p align="center">
 ![image](https://user-images.githubusercontent.com/82496414/205855259-c1a41bd5-bcc4-40bb-96ee-1d4035f8c983.png)
-</p> 
+
 
