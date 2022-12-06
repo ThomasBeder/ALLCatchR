@@ -538,5 +538,3 @@ cat("predictions saved in:", getwd(),"\n")
   utils::write.table(output,"predictions.tsv", sep = "\t", row.names = F)
   return(invisible(output))
 }
-                                          
-
