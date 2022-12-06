@@ -2,5 +2,7 @@
 
 
 <p align="center">
-<img src="https://github.com/ThomasBeder/ALLCatchR/ALLCatchR_workflow.png" alt="Alt text" title="Title" width="600">
+![My Image](ALLCatchR_workflow.png)
 </p>
+
+
