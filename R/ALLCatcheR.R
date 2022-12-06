@@ -464,6 +464,7 @@ table(tier)
 cat("assign putative progenitor...", getwd(),"\n")
     dim(Counts)
   ma <- match(genesMini,rownames(Counts))
+  ma <- ma[!is.na(ma)]                                        
   Counts <- Counts[ma,]
   cds_lengthNum <-  cds_length$cds_length[match(rownames(Counts), cds_length$gene)]
   # calculate mean cds length for missing values
