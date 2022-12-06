@@ -315,10 +315,10 @@ table(tier)
   Counts.norm <- Counts+1
   Counts.norm <- apply(Counts.norm, 2, log10)
   Counts.norm <- apply(Counts.norm, 2, scale)
-  range01 <- function(x){(x-min(x))/(max(x)-min(x))}
-  for (i in 1:ncol(Counts.norm)) {
-    Counts.norm[,i] <- range01(Counts.norm[,i])
-  }
+  #range01 <- function(x){(x-min(x))/(max(x)-min(x))}
+  #for (i in 1:ncol(Counts.norm)) {
+  #  Counts.norm[,i] <- range01(Counts.norm[,i])
+  #}
   
   # transpose data
   Counts.norm <- as.data.frame(t(Counts.norm))
