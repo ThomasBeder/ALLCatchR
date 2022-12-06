@@ -13,7 +13,12 @@ biocViews:
 Imports:
     utils,
     stats,
-    singscore
+    singscore,
+    caret,
+    randomForest,
+    ranger,
+    kknn,
+    LiblineaR
 Suggests:
     knitr,
     rmarkdown
