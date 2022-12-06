@@ -25,15 +25,24 @@ install ALLCatchR
 ```
 devtools::install_github("ThomasBeder/ALLCatchR")
 ```
-## run ALLCatchR
+
+## Quickstart
+If Counts.file is left ```NA``` ten test samples are predicted
+```
+library(ALLCatchR)
+allcatch(Counts.file = NA, ID_class = "symbol",sep = "\t")
+```
+
+## Run ALLCatchR
 As input ALLCatchR requires a single text file in which the first column represent the genes and the other columns the count data for each sample
 ```
 library(ALLCatchR)
-allcatch(Counts.file = "Counts.file", ID_class = "symbol", sep = "\t")
-# Counts.file: /path/to/your/count/data
+allcatch(Counts.file = NA, ID_class = "symbol", sep = "\t")
+# Counts.file: /path/to/your/count/data, if left empty a test
 # ID_class: gene names can be either "symbol", "ensemble_ID" or	"entrez_ID"
-# sep: seperator of the text file usualley "\t", "," or ";"
+# sep: seperator of the text file usually "\t", "," or ";"
 ```
+
 ## output
 ALLCatchR writes a ```predictions.tsv``` file to your current working directory with the following columns:
 - sample: Sample ID
