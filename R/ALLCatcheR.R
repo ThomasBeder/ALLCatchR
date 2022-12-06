@@ -20,7 +20,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
     Counts <- test_data
     cat("test counts loaded...\n")
   }else{
-    Counts <- utils::read.csv(Counts.file, sep = "\t", stringsAsFactors = F, row.names = 1)
+    Counts <- utils::read.csv(Counts.file, sep = sep, stringsAsFactors = F, row.names = 1)
     cat("counts loaded...\n")
   }
   
@@ -299,7 +299,7 @@ table(tier)
     Counts <- test_data
     cat("test counts loaded...\n")
   }else{
-    Counts <- utils::read.csv(Counts.file, sep = "\t", stringsAsFactors = F, row.names = 1)
+    Counts <- utils::read.csv(Counts.file, sep = sep, stringsAsFactors = F, row.names = 1)
   }
     
   if (length(rownames(Counts)) == length(which(rownames(Counts) == as.character(1:nrow(Counts))))) {
@@ -370,7 +370,7 @@ table(tier)
     Counts <- test_data
 #    cat("test counts loaded...\n")
   }else{
-    Counts <- utils::read.csv(Counts.file, sep = "\t", stringsAsFactors = F, row.names = 1)
+    Counts <- utils::read.csv(Counts.file, sep = sep, stringsAsFactors = F, row.names = 1)
 #    cat("counts loaded...\n")
   }
   
