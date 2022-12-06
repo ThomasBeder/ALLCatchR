@@ -12,6 +12,7 @@ globalVariables(c("test_data","models_20","NH","BC_model_GMALL","BC_model_MLL","
 #' @examples
 #' allcatch()
 #'
+suppressWarnings({
 allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   # 1. preprocessing ############################################################
   # load count data, where the first column should be gene identifiers
@@ -531,3 +532,5 @@ cat("predictions saved in:", getwd(),"\n")
   utils::write.table(output,"predictions.tsv", sep = "\t", row.names = F)
   return(invisible(output))
 }
+                                          
+})
