@@ -29,15 +29,15 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   }
     ID_conv <- ID_conversion
   # select the genes used for classifier trainig
-  ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
-  Counts <- Counts[!is.na(ma),]
-  ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
+  ma <- match(ID_conv[,match(ID_class, colnames(ID_conv))], rownames(Counts))
   Counts <- Counts[ma[!is.na(ma)],]
   
   # convert to symbol (classifier was trained on symbols)
   ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
+  Counts <- Counts[!is.na(ma),]
+  ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
   rownames(Counts) <- ID_conv$symbol[ma]
-  
+    
   # normalize data and scale between 0 and 1
   Counts.norm <- Counts+1
   Counts.norm <- apply(Counts.norm, 2, log10)
