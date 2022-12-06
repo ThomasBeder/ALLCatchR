@@ -15,3 +15,10 @@ _ALLCatchR_ was developed to predict:
 Beder et al. 2022[The gene expression classifier ALLCatchR identifies B-precursor ALL subtypes and underlying developmental trajectories across age groups]
 
 ## Installation
+open RStudio
+install devtools and follow the installion guide https://github.com/r-lib/devtools
+```
+if (!require("devtools", quietly = TRUE))
+  install.packages("devtools")
+
+```
