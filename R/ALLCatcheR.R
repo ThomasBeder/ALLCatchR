@@ -14,7 +14,6 @@ globalVariables(c("test_data","models_20","NH","BC_model_GMALL","BC_model_MLL","
 #'
 
 allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
-  suppressWarnings({
   # 1. preprocessing ############################################################
   # load count data, where the first column should be gene identifiers
   if(is.na(Counts.file)){
@@ -147,12 +146,12 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   # load gene sets used for ssGSEA and transform them to a list
   Genes_up <- Genes_up20
   Genes_dn <- Genes_dn20
-  scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[1]], downSet = Genes_dn[[1]])
+  scoredf <-  suppressWarnings({singscore::simpleScore(rankData, upSet = Genes_up[[1]], downSet = Genes_dn[[1]])})
   utils::head(scoredf)
   TotalScore <- scoredf[,1, drop = FALSE]
   
   for (i in 1:length(Genes_up)) {
-    scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[i]], downSet = Genes_dn[[i]])
+    scoredf <- suppressWarnings({singscore::simpleScore(rankData, upSet = Genes_up[[i]], downSet = Genes_dn[[i]])})
     TotalScore[,i] <- scoredf[,1]
   }
   
@@ -211,12 +210,12 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   Genes_dn <- Genes_dnNH
   length(Genes_up)
   length(Genes_dn)
-  scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[1]], downSet = Genes_dn[[1]])
+  scoredf <- suppressWarnings({singscore::simpleScore(rankData, upSet = Genes_up[[1]], downSet = Genes_dn[[1]])})
   utils::head(scoredf)
   TotalScore <- scoredf[,1, drop = FALSE]
   
   for (i in 1:length(Genes_up)) {
-    scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[i]], downSet = Genes_dn[[i]])
+    scoredf <- suppressWarnings({singscore::simpleScore(rankData, upSet = Genes_up[[i]], downSet = Genes_dn[[i]])})
     TotalScore[,i] <- scoredf[,1]
   }
   
@@ -481,12 +480,12 @@ cat("assign putative progenitor...", getwd(),"\n")
   # load gene sets used for ssGSEA and transform them to a list
   Genes_up <- Genes_upMini
   Genes_dn <- Genes_dnMini
-  scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[1]], downSet = Genes_dn[[1]])
+  scoredf <- suppressWarnings({singscore::simpleScore(rankData, upSet = Genes_up[[1]], downSet = Genes_dn[[1]])})
   utils::head(scoredf)
   TotalScore <- scoredf[,1, drop = FALSE]
   
   for (i in 1:length(Genes_up)) {
-    scoredf <- singscore::simpleScore(rankData, upSet = Genes_up[[i]], downSet = Genes_dn[[i]])
+    scoredf <- suppressWarnings({singscore::simpleScore(rankData, upSet = Genes_up[[i]], downSet = Genes_dn[[i]])})
     TotalScore[,i] <- scoredf[,1]
   }
   
@@ -532,7 +531,6 @@ cat("predictions saved in:", getwd(),"\n")
   cat("Writing output file:",paste0(getwd(), "/predictions.tsv"),"...\n")
   utils::write.table(output,"predictions.tsv", sep = "\t", row.names = F)
   return(invisible(output))
-})
 }
                                           
 
