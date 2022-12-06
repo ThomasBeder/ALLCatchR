@@ -29,7 +29,9 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   }
     ID_conv <- ID_conversion
   # select the genes used for classifier trainig
-  ma <- match(ID_conv[,match(ID_class, colnames(ID_conv))], rownames(Counts))
+  ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
+  Counts <- Counts[!is.na(ma),]
+  ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
   Counts <- Counts[ma[!is.na(ma)],]
   
   # convert to symbol (classifier was trained on symbols)
@@ -310,6 +312,8 @@ table(tier)
   
   # convert to symbol (classifier was trained on symbols)
   ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
+  Counts <- Counts[!is.na(ma),]
+  ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
   rownames(Counts) <- ID_conv$symbol[ma]
   
   # normalize data and scale between 0 and 1
@@ -379,6 +383,8 @@ table(tier)
   Counts <- Counts[ma[!is.na(ma)],]
   
   # convert to symbol (classifier was trained on symbols)
+  ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
+  Counts <- Counts[!is.na(ma),]
   ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
   rownames(Counts) <- ID_conv$symbol[ma]
   
