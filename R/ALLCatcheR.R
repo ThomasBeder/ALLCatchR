@@ -14,6 +14,12 @@ globalVariables(c("test_data","models_20","NH","BC_model_GMALL","BC_model_MLL","
 #'
 
 allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
+  # Namespace from packages needed for prediction function using pre-trainted models
+  loadNamespace("kknn")
+  loadNamespace("ranger")
+  loadNamespace("randomForest")
+  loadNamespace("LiblineaR")
+
   # 1. preprocessing ############################################################
   # load count data, where the first column should be gene identifiers
   if(is.na(Counts.file)){
