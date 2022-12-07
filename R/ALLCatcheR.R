@@ -74,13 +74,13 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   cat("ML prediction...\n")
   preds <- list()
   for (i in 1:10) {
-    preds[[i]] <- as.character(stats::predict(models_20[[i]], Counts.norm))
+    preds[[i]] <- as.character(caret::predict.train(models_20[[i]], Counts.norm))
   }
   predsFin20 <- do.call("cbind",preds)
   
   preds <- list()
   for (i in 1:10) {
-    preds[[i]] <- as.character(stats::predict(NH[[i]], Counts.norm))
+    preds[[i]] <- as.character(caret::predict.train(NH[[i]], Counts.norm))
   }
   predsFinNH <- do.call("cbind",preds)
   
@@ -348,13 +348,13 @@ table(tier)
 
   preds <- list()
   for (i in 1:10) {
-    preds[[i]] <- stats::predict(BC_model_GMALL[[i]], Counts.norm)
+    preds[[i]] <- caret::predict.train(BC_model_GMALL[[i]], Counts.norm)
   }
   preds <- do.call("cbind",preds)
   preds1 <- apply(preds, 1, mean)
   preds <- list()
   for (i in 1:10) {
-    preds[[i]] <- stats::predict(BC_model_MLL[[i]], Counts.norm)
+    preds[[i]] <- caret::predict.train(BC_model_MLL[[i]], Counts.norm)
   }
   preds <- do.call("cbind",preds)
   preds2 <- apply(preds, 1, mean)
@@ -420,7 +420,7 @@ table(tier)
   
   preds <- list()
   for (i in 1:length(models_L_sex)) {
-    preds[[i]] <- as.character(stats::predict(models_L_sex[[i]], Counts.norm))
+    preds[[i]] <- as.character(caret::predict.train(models_L_sex[[i]], Counts.norm))
   }
   
   preds <- do.call("cbind",preds)
@@ -446,7 +446,7 @@ table(tier)
 ################################################################################  
   preds <- list()
   for (i in 1:length(models_L_Immuno)) {
-    preds[[i]] <- as.character(stats::predict(models_L_Immuno[[i]], Counts.norm))
+    preds[[i]] <- as.character(caret::predict.train(models_L_Immuno[[i]], Counts.norm))
   }
   preds <- do.call("cbind",preds)
   utils::head(preds)

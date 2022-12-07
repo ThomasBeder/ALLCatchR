@@ -14,11 +14,7 @@ Imports:
     utils,
     stats,
     singscore,
-    caret,
-    randomForest,
-    ranger,
-    kknn,
-    LiblineaR
+    caret
 Suggests:
     knitr,
     rmarkdown
