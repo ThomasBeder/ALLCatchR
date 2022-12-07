@@ -12,7 +12,7 @@ _ALLCatchR_ was developed to predict:
 ![image](ALLCatchR_workflow.png)
 
 ## Publication
-Beder et al. 2022 [The gene expression classifier ALLCatchR identifies B-precursor ALL subtypes and underlying developmental trajectories across age groups]
+Beder T, Hansen BT, Hartmann AM, et al. A Multi-Cohort Gene Expression Classifier (ALLCatchR) Identifies B-Precursor ALL Subtypes and Their Developmental Trajectories across Age Groups. _Blood_. 2022;140(Supplement 1):1053–1055. (https://doi.org/10.1182/blood-2022-163311)
 
 ## Installation
 open RStudio
