@@ -8,7 +8,8 @@ Description: Molecular disease subtype and immunophenotype are important prognos
 URL: https://github.com/ThomasBeder/ALLCatchR
 BugReports: https://github.com/ThomasBeder/ALLcatcheR/issues
 Depends:
-    R (>= 4.0.0)
+    R (>= 4.0.0),
+    rlang (>= 1.0.6)
 biocViews:
 Imports:
     utils,
