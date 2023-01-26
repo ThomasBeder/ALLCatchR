@@ -26,7 +26,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
     Counts <- test_data
     cat("test counts loaded...\n")
   }else{
-    Counts <- utils::read.csv(Counts.file, sep = sep, stringsAsFactors = F, row.names = 1)
+    Counts <- utils::read.csv(Counts.file, sep = sep, stringsAsFactors = F, row.names = 1, check.names = F)
     cat("counts loaded...\n")
   }
   
@@ -56,7 +56,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
   # transpose data
   Counts.norm <- as.data.frame(t(Counts.norm))
   colnames(Counts.norm) <- rownames(Counts)
-  colnames(Counts.norm) <- make.names(colnames(Counts.norm))
+  colnames(Counts.norm) <- colnames(Counts.norm)
   
   # find genes not provided by user
   ma <- match(ID_conv$symbol, rownames(Counts))
@@ -508,9 +508,9 @@ cat("assign putative progenitor...", getwd(),"\n")
   
   # scale total enrichment scores
   TotalScore_scaled <- as.data.frame(t(apply(TotalScore, 1, scale)))
-  for (i in 1:nrow(TotalScore_scaled)) {
-    TotalScore_scaled[i,] <- range01(TotalScore_scaled[i,])
-  }
+  #for (i in 1:nrow(TotalScore_scaled)) {
+  #  TotalScore_scaled[i,] <- range01(TotalScore_scaled[i,])
+  #}
   colnames(TotalScore_scaled) <- colnames(TotalScore)
   utils::head(TotalScore_scaled)
   
