@@ -36,11 +36,11 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
     ID_conv <- ID_conversion
   # select the genes used for classifier trainig
   ma <- match(ID_conv[,match(ID_class, colnames(ID_conv))], rownames(Counts))
-  Counts <- Counts[ma[!is.na(ma)],]
+  Counts <- Counts[ma[!is.na(ma)],,drop = F]
   
   # convert to symbol (classifier was trained on symbols)
   ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
-  Counts <- Counts[!is.na(ma),]
+  Counts <- Counts[!is.na(ma),,drop = F]
   ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
   rownames(Counts) <- ID_conv$symbol[ma]
     
