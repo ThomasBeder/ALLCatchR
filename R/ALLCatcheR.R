@@ -145,7 +145,7 @@ allcatch <- function(Counts.file=NA, ID_class="symbol", sep="\t") {
     x <- counts/len
     return(t(t(x)*1e6/colSums(x)))
   }
-  tpms <- tpm3(Counts[,1:ncol(Counts)],cds_lengthNum)
+  tpms <- tpm3(Counts[,1:ncol(Counts),drop = F],cds_lengthNum)
   tpms <- as.data.frame(tpms)
   
   # rank data
@@ -314,11 +314,11 @@ table(tier)
   ID_conv <- ID_conversion_BC
   # select the genes used for classifier trainig
   ma <- match(ID_conv[,match(ID_class, colnames(ID_conv))], rownames(Counts))
-  Counts <- Counts[ma[!is.na(ma)],]
+  Counts <- Counts[ma[!is.na(ma)],,drop = F]
   
   # convert to symbol (classifier was trained on symbols)
   ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
-  Counts <- Counts[!is.na(ma),]
+  Counts <- Counts[!is.na(ma),,drop = F]
   ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
   rownames(Counts) <- ID_conv$symbol[ma]
   
@@ -386,11 +386,11 @@ table(tier)
   ID_conv <- ID_conversion_sex
   # select the genes used for classifier trainig
   ma <- match(ID_conv[,match(ID_class, colnames(ID_conv))], rownames(Counts))
-  Counts <- Counts[ma[!is.na(ma)],]
+  Counts <- Counts[ma[!is.na(ma)],,drop = F]
   
   # convert to symbol (classifier was trained on symbols)
   ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
-  Counts <- Counts[!is.na(ma),]
+  Counts <- Counts[!is.na(ma),,drop = F]
   ma <- match(rownames(Counts), ID_conv[,match(ID_class, colnames(ID_conv))])
   rownames(Counts) <- ID_conv$symbol[ma]
   
@@ -483,7 +483,7 @@ cat("assign putative progenitor...", getwd(),"\n")
   # calculate mean cds length for missing values
   cds_lengthNum[is.na(cds_lengthNum)] <- mean(cds_lengthNum[is.na(cds_lengthNum)], na.rm = T)
   # calculate tpmps itself # https://support.bioconductor.org/p/91218/
-  tpms <- tpm3(Counts[,1:ncol(Counts)],cds_lengthNum)
+  tpms <- tpm3(Counts[,1:ncol(Counts),drop = F],cds_lengthNum)
   tpms <- as.data.frame(tpms)
   
   # rank data
