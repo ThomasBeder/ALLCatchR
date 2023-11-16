@@ -2,8 +2,8 @@
 
 # ALLCatchR was further developed to predict Ph-pos (_BCR:ABL1_) subcluster 
 # please see https://github.com/ThomasBeder/ALLCatchR_bcrabl1
-
-# ALLCatchR
+# 
+# old ALLCatchR
 
 _The gene expression classifier ALLCatchR identifies B-precursor ALL subtypes and underlying developmental trajectories_
 
